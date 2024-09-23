@@ -1,0 +1,9 @@
+flask
+flask-uploads
+langchain
+langchain_community
+python-docx
+PyPDF2
+requests
+langchain-groq
+python-dotenv

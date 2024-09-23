@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Analyzer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Application Analyzer</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="card">
+                <h2>Job Description</h2>
+                <div>
+                    <label for="jd_type">Input Type:</label>
+                    <select name="jd_type" id="jd_type">
+                        <option value="file">File Upload</option>
+                        <option value="url">URL</option>
+                        <option value="text">Text Input</option>
+                    </select>
+                </div>
+                <div id="jd_file_input">
+                    <label class="custom-file-upload">
+                        <input type="file" name="jd_file" accept=".pdf,.doc,.docx,.txt" class="hidden">
+                        <i class="fas fa-cloud-upload-alt"></i> Choose Job Description File
+                    </label>
+                </div>
+                <div id="jd_url_input" class="hidden">
+                    <input type="text" name="jd_url" placeholder="Enter URL for Job Description">
+                </div>
+                <div id="jd_text_input" class="hidden">
+                    <textarea name="jd_text" placeholder="Paste Job Description here" rows="5"></textarea>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Resume</h2>
+                <div>
+                    <label for="resume_type">Input Type:</label>
+                    <select name="resume_type" id="resume_type">
+                        <option value="file">File Upload</option>
+                        <option value="url">URL</option>
+                        <option value="text">Text Input</option>
+                    </select>
+                </div>
+                <div id="resume_file_input">
+                    <label class="custom-file-upload">
+                        <input type="file" name="resume_file" accept=".pdf,.doc,.docx,.txt" class="hidden">
+                        <i class="fas fa-cloud-upload-alt"></i> Choose Resume File
+                    </label>
+                </div>
+                <div id="resume_url_input" class="hidden">
+                    <input type="text" name="resume_url" placeholder="Enter URL for Resume">
+                </div>
+                <div id="resume_text_input" class="hidden">
+                    <textarea name="resume_text" placeholder="Paste Resume here" rows="5"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit">Analyze</button>
+        </form>
+        
+        {% if result %}
+        <div class="card">
+            <h2>Analysis Result</h2>
+            
+            <div class="result-section">
+                <h3>Cover Letter</h3>
+                <div class="cover-letter">
+                    {{ result.cover_letter }}
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h3>Interview Questions</h3>
+                <ol class="interview-questions">
+                    {% for question in result.interview_questions %}
+                        <li>{{ question }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+            
+            <div class="result-section resume-review">
+                <h3>Resume Review</h3>
+                <h4 class="strengths">Strengths</h4>
+                <ul>
+                    {% for strength in result.resume_review.strengths %}
+                        <li>{{ strength }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <h4 class="weaknesses">Areas for Improvement</h4>
+                <ul>
+                    {% for weakness in result.resume_review.weaknesses %}
+                        <li>{{ weakness }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <h4 class="suggestions">Suggestions</h4>
+                <ul>
+                    {% for suggestion in result.resume_review.suggestions %}
+                        <li>{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
