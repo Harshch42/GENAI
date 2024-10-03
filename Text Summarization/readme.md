@@ -5,7 +5,7 @@ A web application that summarizes long texts using the **DistilBART** model, fea
 
 ## Model Overview
 
-- **Model Type:** [DistilBART]([url](https://huggingface.co/sshleifer/distilbart-cnn-12-6)) (Transformer-based)
+- **Model Type:** [DistilBART](https://huggingface.co/sshleifer/distilbart-cnn-12-6) (Transformer-based)
 - **Task:** Text Summarization
 - **Language:** English
 
